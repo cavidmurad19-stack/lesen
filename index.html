@@ -546,15 +546,21 @@ function addTask(){
 
 /* API */
 async function callClaude(prompt){
-  const API_KEY='AIzaSyCIeHKMlItWorSdqS_s-tScZhEpRfMkuP8';
-  const resp=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+API_KEY,{
+  const API_KEY='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';
+  const resp=await fetch('https://openrouter.ai/api/v1/chat/completions',{
     method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+API_KEY
+    },
+    body:JSON.stringify({
+      model:'google/gemini-2.0-flash-exp:free',
+      messages:[{role:'user',content:prompt}]
+    })
   });
   if(!resp.ok) throw new Error('API '+resp.status);
   const d=await resp.json();
-  return d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+  return d.choices?.[0]?.message?.content||'';
 }
 
 /* INIT */
