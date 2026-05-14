@@ -554,7 +554,7 @@ async function callClaude(prompt){
       'Authorization':'Bearer '+API_KEY
     },
     body:JSON.stringify({
-      model:'google/gemini-2.0-flash-exp:free',
+      model:'meta-llama/llama-3.1-8b-instruct:free',
       messages:[{role:'user',content:prompt}]
     })
   });
